@@ -29,3 +29,16 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function GET(req: NextRequest) {
+  try {
+    const workouts = await prisma.workout.findMany();
+
+    return NextResponse.json(workouts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal server error.' },
+      { status: 500 },
+    );
+  }
+}
