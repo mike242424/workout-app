@@ -29,7 +29,7 @@ const AddWorkoutPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <main className="flex items-center justify-center mt-20">
       <Card className="w-10/12 md:w-8/12 lg:w-6/12">
         <CardHeader>
           <CardTitle className="font-bold text-3xl mt-4 text-center">
@@ -40,7 +40,7 @@ const AddWorkoutPage = () => {
           <AddWorkoutForm onSubmit={handleFormSubmit} />
         </CardContent>
       </Card>
-    </div>
+    </main>
   );
 };
 
