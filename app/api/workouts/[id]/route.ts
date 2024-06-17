@@ -1,7 +1,7 @@
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { paramsIdSchema } from '@/validation/paramsIdSchema';
 import { workoutSchema } from '@/validation/workoutSchema';
-import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,

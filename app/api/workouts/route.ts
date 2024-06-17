@@ -1,6 +1,6 @@
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { workoutSchema } from '@/validation/workoutSchema';
-import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
@@ -39,7 +39,11 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const workouts = await prisma.workout.findMany();
+    const workouts = await prisma.workout.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
 
     return NextResponse.json(workouts);
   } catch (error) {
