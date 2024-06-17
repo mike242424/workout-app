@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Workout {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  exercises  Exercise[]
+}
+
+model Exercise {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  workoutId String   @db.ObjectId
+  workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  sets      Set[] 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Set {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  exerciseId String    @db.ObjectId
+  exercise   Exercise  @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  reps       Int
+  weight     Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
