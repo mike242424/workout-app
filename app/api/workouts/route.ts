@@ -6,6 +6,13 @@ export async function POST(req: NextRequest) {
   try {
     const { title } = await req.json();
 
+    if (!title) {
+      return NextResponse.json(
+        { error: 'Invalid request. Title required.' },
+        { status: 400 },
+      );
+    }
+
     const validate = workoutSchema.safeParse({ title });
 
     if (!validate.success) {
