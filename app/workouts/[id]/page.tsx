@@ -1,18 +1,19 @@
 'use client';
 
+import DeleteWorkoutButton from '@/components/delete-workout-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
 import { formatDate } from '@/lib/formatDate';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { format } from 'util';
+import Link from 'next/link';
 
 const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading, isError } = useQuery({
@@ -33,8 +34,10 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
         </CardHeader>
         <CardFooter className="flex gap-4">
-          <Button>Update</Button>
-          <Button>Delete</Button>
+          <Link href={`/workouts/update/${data?.id}`}>
+            <Button>Update</Button>
+          </Link>
+          <DeleteWorkoutButton id={id} />
         </CardFooter>
       </Card>
     </main>
