@@ -38,7 +38,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4 mt-4">
-            <p className="font-bold text-2xl"> My Excercises</p>
+            <p className="font-bold text-2xl"> My Exercises</p>
             <Link
               className="flex items-center justify-center bg-green-600 w-10 h-10 rounded-full font-bold"
               href={`/workouts/${data?.id}/exercises/add`}

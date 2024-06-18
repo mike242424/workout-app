@@ -8,8 +8,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function DELETE(
   req: NextRequest,
   {
-    params: { id: workoutId, excerciseId },
-  }: { params: { id: string; excerciseId: string } },
+    params: { id: workoutId, exerciseId },
+  }: { params: { id: string; exerciseId: string } },
 ) {
   try {
     if (!workoutId) {
@@ -28,7 +28,7 @@ export async function DELETE(
       );
     }
 
-    if (!excerciseId) {
+    if (!exerciseId) {
       return NextResponse.json(
         { error: 'Invalid request. Exercise id required.' },
         { status: 400 },
@@ -36,7 +36,7 @@ export async function DELETE(
     }
 
     const validateExerciseId = paramsExerciseIdSchema.safeParse({
-      excerciseId,
+      exerciseId,
     });
 
     if (!validateExerciseId.success) {
@@ -46,11 +46,11 @@ export async function DELETE(
       );
     }
 
-    const excercise = await prisma.exercise.findUnique({
-      where: { id: excerciseId },
+    const exercise = await prisma.exercise.findUnique({
+      where: { id: exerciseId },
     });
 
-    if (!excercise) {
+    if (!exercise) {
       return NextResponse.json(
         {
           error: 'Exercise not found.',
@@ -59,7 +59,7 @@ export async function DELETE(
       );
     }
 
-    if (excercise.workoutId !== workoutId) {
+    if (exercise.workoutId !== workoutId) {
       return NextResponse.json(
         {
           error: 'Exercise does not belong to the specified workout.',
@@ -69,7 +69,7 @@ export async function DELETE(
     }
 
     await prisma.exercise.delete({
-      where: { id: excerciseId },
+      where: { id: exerciseId },
     });
 
     return NextResponse.json({ message: 'Exercise deleted successfully.' });
@@ -84,8 +84,8 @@ export async function DELETE(
 export async function PUT(
   req: NextRequest,
   {
-    params: { id: workoutId, excerciseId },
-  }: { params: { id: string; excerciseId: string } },
+    params: { id: workoutId, exerciseId },
+  }: { params: { id: string; exerciseId: string } },
 ) {
   try {
     const { title } = await req.json();
@@ -106,7 +106,7 @@ export async function PUT(
       );
     }
 
-    if (!excerciseId) {
+    if (!exerciseId) {
       return NextResponse.json(
         { error: 'Invalid request. Exercise id required.' },
         { status: 400 },
@@ -114,7 +114,7 @@ export async function PUT(
     }
 
     const validateExerciseId = paramsExerciseIdSchema.safeParse({
-      excerciseId,
+      exerciseId,
     });
 
     if (!validateExerciseId.success) {
@@ -133,11 +133,11 @@ export async function PUT(
       );
     }
 
-    const excercise = await prisma.exercise.findUnique({
-      where: { id: excerciseId },
+    const exercise = await prisma.exercise.findUnique({
+      where: { id: exerciseId },
     });
 
-    if (!excercise) {
+    if (!exercise) {
       return NextResponse.json(
         {
           error: 'Exercise not found.',
@@ -146,7 +146,7 @@ export async function PUT(
       );
     }
 
-    if (excercise.workoutId !== workoutId) {
+    if (exercise.workoutId !== workoutId) {
       return NextResponse.json(
         {
           error: 'Exercise does not belong to the specified workout.',
@@ -155,14 +155,91 @@ export async function PUT(
       );
     }
 
-    const updatedExcercise = await prisma.exercise.update({
-      where: { id: excerciseId, workoutId },
+    const updatedExercise = await prisma.exercise.update({
+      where: { id: exerciseId, workoutId },
       data: {
         title,
       },
     });
 
-    return NextResponse.json(updatedExcercise);
+    return NextResponse.json(updatedExercise);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: 'Internal server error.' },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET(
+  req: NextRequest,
+  {
+    params: { id: workoutId, exerciseId },
+  }: { params: { id: string; exerciseId: string } },
+) {
+  try {
+    if (!workoutId) {
+      return NextResponse.json(
+        { error: 'Invalid request. Id required.' },
+        { status: 400 },
+      );
+    }
+
+    const validateWorkoutId = paramsWorkoutIdSchema.safeParse({ workoutId });
+
+    if (!validateWorkoutId.success) {
+      return NextResponse.json(
+        { error: validateWorkoutId.error.errors[0].message },
+        { status: 403 },
+      );
+    }
+
+    if (!exerciseId) {
+      return NextResponse.json(
+        { error: 'Invalid request. Exercise id required.' },
+        { status: 400 },
+      );
+    }
+
+    const validateExerciseId = paramsExerciseIdSchema.safeParse({
+      exerciseId,
+    });
+
+    if (!validateExerciseId.success) {
+      return NextResponse.json(
+        { error: validateExerciseId.error.errors[0].message },
+        { status: 403 },
+      );
+    }
+
+    const exercise = await prisma.exercise.findUnique({
+      where: { id: exerciseId, workoutId },
+    });
+
+    if (!exercise) {
+      return NextResponse.json(
+        {
+          error: 'Exercise not found.',
+        },
+        { status: 404 },
+      );
+    }
+
+    if (exercise.workoutId !== workoutId) {
+      return NextResponse.json(
+        {
+          error: 'Exercise does not belong to the specified workout.',
+        },
+        { status: 404 },
+      );
+    }
+
+    const updatedExercise = await prisma.exercise.findUnique({
+      where: { id: exerciseId, workoutId },
+    });
+
+    return NextResponse.json(updatedExercise);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
