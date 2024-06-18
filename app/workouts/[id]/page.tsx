@@ -39,7 +39,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           <div className="flex items-center gap-4 mt-4">
             <p className="font-bold text-2xl"> My Exercises</p>
             <Link
-              className="flex items-center justify-center bg-green-600 w-10 h-10 rounded-full font-bold"
+              className="flex items-center justify-center bg-green-600 hover:bg-opacity-80 w-10 h-10 rounded-full font-bold"
               href={`/workouts/${data?.id}/exercises/add`}
             >
               +
