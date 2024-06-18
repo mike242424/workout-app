@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const excerciseSchema = z.object({
+export const exerciseSchema = z.object({
   title: z
     .string()
     .min(1, 'Valid title required.')

@@ -4,6 +4,7 @@ import DeleteWorkoutButton from '@/components/delete-workout-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -11,6 +12,7 @@ import {
 } from '@/components/ui/card';
 
 import { formatDate } from '@/lib/formatDate';
+import { Exercise } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -22,7 +24,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   });
 
   async function getWorkout() {
-    const response = await axios.get(`/api/workouts/${id}`);
+    const response = await axios.get(`/api/workouts/${id}/exercises`);
     return response.data;
   }
 
@@ -33,7 +35,22 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           <CardTitle>{data?.title}</CardTitle>
           <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
         </CardHeader>
-        <CardFooter className="flex gap-4">
+        <CardContent>
+          <p className="font-bold text-2xl">Excercises:</p>
+          {data?.exercises &&
+            data?.exercises.map((exercise: Exercise, i: number) => (
+              <Link
+                href={`/workouts/${id}/exercises/${exercise.id}`}
+                className="text-xl"
+                key={exercise.id}
+              >
+                <div className="hover:underline">
+                  {i + 1}. {exercise.title}
+                </div>
+              </Link>
+            ))}
+        </CardContent>
+        <CardFooter className="flex w-full justify-between gap-4">
           <Link href={`/workouts/update/${data?.id}`}>
             <Button>Update</Button>
           </Link>

@@ -1,5 +1,5 @@
 import prisma from '@/lib/db';
-import { excerciseSchema } from '@/validation/excerciseSchema';
+import { exerciseSchema } from '@/validation/exerciseSchema';
 import { paramsIdSchema } from '@/validation/paramsIdSchema';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -33,7 +33,7 @@ export async function POST(
       );
     }
 
-    const validateTitle = excerciseSchema.safeParse({ title });
+    const validateTitle = exerciseSchema.safeParse({ title });
 
     if (!validateTitle.success) {
       return NextResponse.json(

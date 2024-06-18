@@ -1,6 +1,6 @@
 import prisma from '@/lib/db';
-import { excerciseSchema } from '@/validation/excerciseSchema';
-import { paramsExcerciseIdSchema } from '@/validation/paramsExcerciseIdSchema';
+import { exerciseSchema } from '@/validation/exerciseSchema';
+import { paramsExerciseIdSchema } from '@/validation/paramsExerciseIdSchema';
 import { paramsIdSchema } from '@/validation/paramsIdSchema';
 import { paramsWorkoutIdSchema } from '@/validation/paramsWorkoutIdSchema';
 import { NextRequest, NextResponse } from 'next/server';
@@ -35,7 +35,7 @@ export async function DELETE(
       );
     }
 
-    const validateExerciseId = paramsExcerciseIdSchema.safeParse({
+    const validateExerciseId = paramsExerciseIdSchema.safeParse({
       excerciseId,
     });
 
@@ -113,7 +113,7 @@ export async function PUT(
       );
     }
 
-    const validateExerciseId = paramsExcerciseIdSchema.safeParse({
+    const validateExerciseId = paramsExerciseIdSchema.safeParse({
       excerciseId,
     });
 
@@ -124,7 +124,7 @@ export async function PUT(
       );
     }
 
-    const validateTitle = excerciseSchema.safeParse({ title });
+    const validateTitle = exerciseSchema.safeParse({ title });
 
     if (!validateTitle.success) {
       return NextResponse.json(
