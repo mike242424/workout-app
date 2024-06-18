@@ -1,4 +1,6 @@
 import prisma from '@/lib/db';
+import { excerciseSchema } from '@/validation/excerciseSchema';
+import { paramsIdSchema } from '@/validation/paramsIdSchema';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
@@ -8,10 +10,35 @@ export async function POST(
   try {
     const { title } = await req.json();
 
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Invalid request. Id required.' },
+        { status: 400 },
+      );
+    }
+
+    const validateId = paramsIdSchema.safeParse({ id });
+
+    if (!validateId.success) {
+      return NextResponse.json(
+        { error: validateId.error.errors[0].message },
+        { status: 403 },
+      );
+    }
+
     if (!title) {
       return NextResponse.json(
         { error: 'Invalid request. Exercise title required.' },
         { status: 400 },
+      );
+    }
+
+    const validateTitle = excerciseSchema.safeParse({ title });
+
+    if (!validateTitle.success) {
+      return NextResponse.json(
+        { error: validateTitle.error.errors[0].message },
+        { status: 403 },
       );
     }
 
@@ -51,6 +78,15 @@ export async function GET(
       return NextResponse.json(
         { error: 'Invalid request. Id required.' },
         { status: 400 },
+      );
+    }
+
+    const validate = paramsIdSchema.safeParse({ id });
+
+    if (!validate.success) {
+      return NextResponse.json(
+        { error: validate.error.errors[0].message },
+        { status: 403 },
       );
     }
 
