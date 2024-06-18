@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/components/Navbar';
 import QueryClientContextProvider from '@/context/query-client-context-provider';
+import Navbar from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'Workout App',
