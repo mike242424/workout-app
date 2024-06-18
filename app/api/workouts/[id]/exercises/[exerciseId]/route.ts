@@ -19,11 +19,11 @@ export async function DELETE(
       );
     }
 
-    const validateId = paramsIdSchema.safeParse({ workoutId });
+    const validateWorkoutId = paramsWorkoutIdSchema.safeParse({ workoutId });
 
-    if (!validateId.success) {
+    if (!validateWorkoutId.success) {
       return NextResponse.json(
-        { error: validateId.error.errors[0].message },
+        { error: validateWorkoutId.error.errors[0].message },
         { status: 403 },
       );
     }

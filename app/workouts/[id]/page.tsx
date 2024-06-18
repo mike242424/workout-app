@@ -25,7 +25,6 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
 
   async function getWorkouts() {
     const response = await axios.get(`/api/workouts/${id}/exercises`);
-    console.log(response.data);
     return response.data;
   }
 
@@ -65,7 +64,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
         </CardContent>
         <CardFooter className="flex w-full justify-between gap-4">
           <Link href={`/workouts/update/${data?.id}`}>
-            <Button>Update</Button>
+            <Button>Update Workout</Button>
           </Link>
           <DeleteWorkoutButton id={id} />
         </CardFooter>
