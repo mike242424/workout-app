@@ -48,7 +48,9 @@ const ExercisePage = ({
           </div>
         </CardContent>
         <CardFooter className="flex w-full justify-between gap-4">
-          <Button>Update Exercise</Button>
+          <Link href={`/workouts/${id}/exercises/update/${exerciseId}`}>
+            <Button>Update Exercise</Button>
+          </Link>
           <DeleteExerciseButton id={id} exerciseId={exerciseId} />
         </CardFooter>
       </Card>
