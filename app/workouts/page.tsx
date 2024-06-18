@@ -41,7 +41,7 @@ const WorkoutsPage = () => {
             href={`workouts/${workout.id}`}
             key={workout.id}
           >
-            <Card>
+            <Card className="hover:shadow-xl">
               <CardHeader>
                 <CardTitle>{workout.title}</CardTitle>
                 <CardDescription>

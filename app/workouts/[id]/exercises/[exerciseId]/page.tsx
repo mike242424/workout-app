@@ -32,7 +32,7 @@ const ExercisePage = ({
 
   return (
     <main className="flex justify-center items-center w-full mt-20">
-      <Card className="flex flex-col items-center gap-4 w-10/12 md:w-8/12 lg:w-6/12">
+      <Card className="flex flex-col items-center gap-4 w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
         <CardHeader>
           <CardTitle className="font-bold tet-3xl">{data?.title}</CardTitle>
         </CardHeader>
