@@ -44,7 +44,9 @@ const ExercisePage = ({
           <p>Weight: {data?.weight}</p>
         </CardContent>
         <CardFooter className="flex w-full justify-between gap-4">
-          <Link href={`/set/update/${setId}`}>
+          <Link
+            href={`/workouts/${id}/exercises/${exerciseId}/sets/update/${setId}`}
+          >
             <Button>Update Set</Button>
           </Link>
           {/* <DeleteSetButton id={id} /> */}
