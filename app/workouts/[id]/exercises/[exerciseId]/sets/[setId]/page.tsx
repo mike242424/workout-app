@@ -36,7 +36,7 @@ const ExercisePage = ({
 
   return (
     <main className="flex justify-center items-center w-full mt-20">
-      <Card className="flex flex-col items-center gap-4 w-6/12 hover:shadow-xl">
+      <Card className="flex flex-col items-center gap-4 w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
         <CardHeader>
           <CardTitle className="font-bold text-3xl">{data?.title}</CardTitle>
         </CardHeader>
@@ -44,7 +44,7 @@ const ExercisePage = ({
           <p>Reps: {data?.reps}</p>
           <p>Weight: {data?.weight}</p>
         </CardContent>
-        <CardFooter className="flex w-full justify-between gap-4">
+        <CardFooter className="flex-col sm:flex-row w-full justify-between gap-4">
           <Link
             href={`/workouts/${id}/exercises/${exerciseId}/sets/update/${setId}`}
           >

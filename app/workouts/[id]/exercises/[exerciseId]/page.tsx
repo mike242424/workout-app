@@ -92,7 +92,7 @@ const ExercisePage = ({
             <p className="mt-4 text-center">Add a set to this exercise</p>
           )}
         </CardContent>
-        <CardFooter className="flex w-full justify-between gap-4">
+        <CardFooter className="flex-col sm:flex-row w-full justify-between gap-4">
           <Link href={`/workouts/${id}/exercises/update/${exerciseId}`}>
             <Button>Update Exercise</Button>
           </Link>

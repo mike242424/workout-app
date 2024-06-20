@@ -44,7 +44,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <main className="flex justify-center items-center w-full mt-20">
-      <Card className="flex flex-col items-center gap-4 w-6/12 hover:shadow-xl">
+      <Card className="flex flex-col items-center gap-4 w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
         <CardHeader>
           <CardTitle className="font-bold text-3xl">{data?.title}</CardTitle>
           <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
@@ -86,7 +86,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
             <p className="mt-4 text-center">Add an exercise to this workout</p>
           )}
         </CardContent>
-        <CardFooter className="flex w-full justify-between gap-4">
+        <CardFooter className="flex-col sm:flex-row w-full justify-between gap-4">
           <Link href={`/workouts/update/${data?.id}`}>
             <Button>Update Workout</Button>
           </Link>
