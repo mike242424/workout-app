@@ -28,7 +28,7 @@ import { useRouter } from 'next/navigation';
 
 const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   const router = useRouter();
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['workouts', id],
     queryFn: getWorkouts,
   });
@@ -38,6 +38,10 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
     return response.data;
   }
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <main className="flex justify-center items-center w-full mt-20">
       <Card className="flex flex-col items-center gap-4 w-6/12 hover:shadow-xl">
@@ -45,8 +49,8 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           <CardTitle className="font-bold text-3xl">{data?.title}</CardTitle>
           <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4">
+        <CardContent className="w-full">
+          <div className="flex items-center justify-center gap-4">
             <p className="font-bold text-2xl"> My Exercises</p>
             <Link
               className="flex items-center justify-center bg-green-600 hover:bg-opacity-80 w-10 h-10 rounded-full font-bold"
@@ -79,7 +83,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
               </TableBody>
             </Table>
           ) : (
-            <p className="mt-4">Add an exercise to this workout</p>
+            <p className="mt-4 text-center">Add an exercise to this workout</p>
           )}
         </CardContent>
         <CardFooter className="flex w-full justify-between gap-4">

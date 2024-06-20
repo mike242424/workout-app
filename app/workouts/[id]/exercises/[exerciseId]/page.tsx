@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Set } from '@prisma/client';
@@ -27,7 +28,8 @@ const ExercisePage = ({
 }: {
   params: { id: string; exerciseId: string };
 }) => {
-  const { data, isLoading, error } = useQuery({
+  const router = useRouter();
+  const { data, isLoading } = useQuery({
     queryKey: ['exercises'],
     queryFn: getExercises,
   });
@@ -37,6 +39,10 @@ const ExercisePage = ({
       `http://localhost:3000/api/workouts/${id}/exercises/${exerciseId}`,
     );
     return response.data;
+  }
+
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
 
   return (
@@ -66,7 +72,15 @@ const ExercisePage = ({
               </TableHeader>
               <TableBody>
                 {data?.sets.map((set: Set, i: number) => (
-                  <TableRow key={set.id}>
+                  <TableRow
+                    className="hover:cursor-pointer"
+                    key={set.id}
+                    onClick={() =>
+                      router.push(
+                        `/workouts/${id}/exercises/${exerciseId}/sets/${set.id}`,
+                      )
+                    }
+                  >
                     <TableCell>{i + 1}.</TableCell>
                     <TableCell>{set.reps}</TableCell>
                     <TableCell>{set.weight}</TableCell>
@@ -75,14 +89,7 @@ const ExercisePage = ({
               </TableBody>
             </Table>
           ) : (
-            // <div className="flex text-xl mt-4" key={set.id}>
-            //   <p className="text-xl">
-            //     <span className="font-bold">{i + 1}.</span> Reps: {set.reps}{' '}
-            //     Weight: {set.weight}
-            //   </p>
-            // </div>
-
-            <p>Add a set to this exercise</p>
+            <p className="mt-4 text-center">Add a set to this exercise</p>
           )}
         </CardContent>
         <CardFooter className="flex w-full justify-between gap-4">

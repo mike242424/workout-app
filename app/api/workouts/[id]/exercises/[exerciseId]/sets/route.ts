@@ -11,7 +11,7 @@ export async function POST(
   }: { params: { id: string; exerciseId: string } },
 ) {
   try {
-    const { title, reps, weight } = await req.json();
+    const { reps, weight } = await req.json();
 
     if (!workoutId) {
       return NextResponse.json(
@@ -45,13 +45,6 @@ export async function POST(
       );
     }
 
-    if (!title) {
-      return NextResponse.json(
-        { error: 'Invalid request. Exercise title required.' },
-        { status: 400 },
-      );
-    }
-
     if (!reps) {
       return NextResponse.json(
         { error: 'Invalid request. Exercise reps required.' },
@@ -66,7 +59,7 @@ export async function POST(
       );
     }
 
-    const validateSet = setSchema.safeParse({ title, reps, weight });
+    const validateSet = setSchema.safeParse({ reps, weight });
 
     if (!validateSet.success) {
       return NextResponse.json(
@@ -96,6 +89,12 @@ export async function POST(
         { status: 404 },
       );
     }
+
+    const setCount = await prisma.set.count({
+      where: { exerciseId },
+    });
+
+    const title = `Set ${setCount + 1}`;
 
     const newSet = await prisma.set.create({
       data: {
