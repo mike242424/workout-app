@@ -16,7 +16,7 @@ const UpdateExercisePage = ({
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['exercise', id],
     queryFn: getExercise,
   });
@@ -46,6 +46,10 @@ const UpdateExercisePage = ({
 
   async function handleFormSubmit(data: z.infer<typeof workoutSchema>) {
     mutation.mutate(data);
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
