@@ -10,14 +10,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 import { formatDate } from '@/lib/formatDate';
 import { Exercise } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
+  const router = useRouter();
   const { data, isLoading, isError } = useQuery({
     queryKey: ['workouts', id],
     queryFn: getWorkouts,
@@ -36,7 +46,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-center gap-4">
             <p className="font-bold text-2xl"> My Exercises</p>
             <Link
               className="flex items-center justify-center bg-green-600 hover:bg-opacity-80 w-10 h-10 rounded-full font-bold"
@@ -45,19 +55,29 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
               +
             </Link>
           </div>
-
           {data?.exercises.length > 0 ? (
-            data?.exercises.map((exercise: Exercise, i: number) => (
-              <Link
-                href={`/workouts/${id}/exercises/${exercise.id}`}
-                className="text-xl"
-                key={exercise.id}
-              >
-                <div className="hover:underline">
-                  {i + 1}. {exercise.title}
-                </div>
-              </Link>
-            ))
+            <Table className="mt-4">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Exercise No.</TableHead>
+                  <TableHead>Exercise</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data?.exercises.map((exercise: Exercise, i: number) => (
+                  <TableRow
+                    className="hover:cursor-pointer"
+                    key={exercise.id}
+                    onClick={() =>
+                      router.push(`/workouts/${id}/exercises/${exercise.id}`)
+                    }
+                  >
+                    <TableCell>{i + 1}</TableCell>
+                    <TableCell>{exercise.title}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           ) : (
             <p className="mt-4">Add an exercise to this workout</p>
           )}
