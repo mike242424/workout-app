@@ -26,8 +26,6 @@ const UpdateExerciseForm = ({ title, onSubmit }: UpdateExerciseFormProps) => {
     defaultValues: { title },
   });
 
-  console.log(title);
-
   return (
     <div className="flex items-center justify-center">
       <Form {...form}>
