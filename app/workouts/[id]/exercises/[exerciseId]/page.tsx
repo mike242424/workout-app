@@ -81,7 +81,7 @@ const ExercisePage = ({
                       )
                     }
                   >
-                    <TableCell>{i + 1}.</TableCell>
+                    <TableCell>{i + 1}</TableCell>
                     <TableCell>{set.reps}</TableCell>
                     <TableCell>{set.weight}</TableCell>
                   </TableRow>

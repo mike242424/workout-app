@@ -1,5 +1,9 @@
 'use client';
 
+import Link from 'next/link';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import DeleteSetButton from '@/components/delete-set-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -8,9 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import Link from 'next/link';
 
 const ExercisePage = ({
   params: { id, exerciseId, setId },
@@ -49,7 +50,7 @@ const ExercisePage = ({
           >
             <Button>Update Set</Button>
           </Link>
-          {/* <DeleteSetButton id={id} /> */}
+          <DeleteSetButton id={id} exerciseId={exerciseId} setId={setId} />
         </CardFooter>
       </Card>
     </main>
