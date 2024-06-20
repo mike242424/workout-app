@@ -153,6 +153,20 @@ export async function DELETE(
       },
     });
 
+    const remainingSets = await prisma.set.findMany({
+      where: { exerciseId },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const updatedSets = await Promise.all(
+      remainingSets.map((set, index) => {
+        return prisma.set.update({
+          where: { id: set.id },
+          data: { title: `Set ${index + 1}` },
+        });
+      }),
+    );
+
     return NextResponse.json({ messsage: 'Set deleted successfully.' });
   } catch (error) {
     console.log(error);
