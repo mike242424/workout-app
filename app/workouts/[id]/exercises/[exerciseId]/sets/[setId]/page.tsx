@@ -41,8 +41,12 @@ const ExercisePage = ({
           <CardTitle className="font-bold text-3xl">{data?.title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>Reps: {data?.reps}</p>
-          <p>Weight: {data?.weight}</p>
+          <p>
+            <span className="font-bold">Reps:</span> {data?.reps}
+          </p>
+          <p>
+            <span className="font-bold">Weight:</span> {data?.weight}
+          </p>
         </CardContent>
         <CardFooter className="flex-col sm:flex-row w-full justify-between gap-4">
           <Link
