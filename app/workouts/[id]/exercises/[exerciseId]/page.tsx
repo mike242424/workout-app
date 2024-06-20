@@ -27,6 +27,7 @@ const ExercisePage = ({
     const response = await axios.get(
       `http://localhost:3000/api/workouts/${id}/exercises/${exerciseId}`,
     );
+    console.log(response.data);
     return response.data;
   }
 

@@ -48,7 +48,6 @@ export async function DELETE(
 
     const exercise = await prisma.exercise.findUnique({
       where: { id: exerciseId },
-      include: { sets: true },
     });
 
     if (!exercise) {
@@ -238,6 +237,7 @@ export async function GET(
 
     const updatedExercise = await prisma.exercise.findUnique({
       where: { id: exerciseId, workoutId },
+      include: { sets: true },
     });
 
     return NextResponse.json(updatedExercise);
