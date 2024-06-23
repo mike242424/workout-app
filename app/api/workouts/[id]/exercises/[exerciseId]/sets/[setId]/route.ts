@@ -169,7 +169,6 @@ export async function DELETE(
 
     return NextResponse.json({ messsage: 'Set deleted successfully.' });
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: 'Internal server error.' },
       { status: 500 },
@@ -281,7 +280,6 @@ export async function PUT(
 
     return NextResponse.json(updatedSet);
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: 'Internal server error.' },
       { status: 500 },

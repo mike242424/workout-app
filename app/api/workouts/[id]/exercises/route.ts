@@ -104,7 +104,6 @@ export async function GET(
 
     return NextResponse.json(workout);
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { error: 'Internal server error.' },
       { status: 500 },
