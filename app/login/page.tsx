@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import LoginUserForm from '@/components/login-user-form';
 import {
   Card,
@@ -6,9 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import Link from 'next/link';
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const session = await getServerSession();
+
+  if (session) {
+    redirect('/workouts');
+  }
+
   return (
     <main className="flex items-center justify-center mt-20">
       <Card className="w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
