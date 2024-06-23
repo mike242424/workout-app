@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import LoginUserForm from '@/components/login-user-form';
+import RegisterUserForm from '@/components/register-user-form';
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-const LoginPage = async () => {
+const RegisterPage = async () => {
   const session = await getServerSession();
 
   if (session) {
@@ -18,20 +18,20 @@ const LoginPage = async () => {
   }
 
   return (
-    <main className="flex items-center justify-center mt-20">
+    <main className="flex items-center justify-center mt-10">
       <Card className="w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
         <CardHeader>
           <CardTitle className="font-bold text-3xl mt-4 text-center">
-            Login
+            Register
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <LoginUserForm />
+          <RegisterUserForm />
         </CardContent>
         <CardFooter className="flex justify-center">
-          Create an account?
+          Already have an account?
           <Link href="/">
-            <span className="ml-1 font-bold hover:underline">Register</span>
+            <span className="ml-1 font-bold hover:underline">Login</span>
           </Link>
         </CardFooter>
       </Card>
@@ -39,4 +39,4 @@ const LoginPage = async () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

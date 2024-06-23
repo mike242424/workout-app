@@ -41,7 +41,7 @@ const RegisterUserForm = () => {
     mutationFn: registerUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      router.push('/login');
+      router.push('/');
     },
   });
 

@@ -6,7 +6,7 @@ const NotFound = () => {
       <h1 className="font-bold text-3xl">Page Not Found</h1>
       <p>
         This page does not exist. Return
-        <Link className="font-bold hover:underline ml-1" href="workouts">
+        <Link className="font-bold hover:underline ml-1" href="/workouts">
           home?
         </Link>
       </p>

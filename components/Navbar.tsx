@@ -6,7 +6,7 @@ const Navbar = async () => {
   const session = await getServerSession();
 
   return (
-    <nav className="bg-sky-500 p-4">
+    <nav className="bg-gradient-to-r from-sky-500 to-sky-800 p-4">
       <div className="flex justify-between items-center">
         <Link className="font-bold text-4xl " href="/">
           Workout App
