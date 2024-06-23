@@ -31,7 +31,6 @@ const LoginUserForm = () => {
       redirect: false,
     });
 
-    console.log(signInData);
     if (signInData?.error === 'CredentialsSignin') {
       form.setError('email', {
         type: 'manual',
