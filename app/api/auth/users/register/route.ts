@@ -5,12 +5,13 @@ import { registerUserSchema } from '@/validation/registerUserSchema';
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, email, password } = await req.json();
+    const { username, email, password, confirmPassword } = await req.json();
 
     const validateRegisterUserSchema = registerUserSchema.safeParse({
       username,
       email,
       password,
+      confirmPassword,
     });
 
     if (!validateRegisterUserSchema.success) {

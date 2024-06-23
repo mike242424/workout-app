@@ -4,11 +4,11 @@ type RegisterUserFormData = {
   username: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { User } from '@prisma/client';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,7 +30,12 @@ const RegisterUserForm = () => {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registerUserSchema),
-    defaultValues: { username: '', email: '', password: '' },
+    defaultValues: {
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
   });
   const mutation = useMutation({
     mutationFn: registerUser,
@@ -98,6 +103,19 @@ const RegisterUserForm = () => {
               </FormItem>
             )}
           ></FormField>
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password:</FormLabel>
+                <FormControl>
+                  <Input placeholder="********" type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type="submit">Register</Button>
         </form>
       </Form>
