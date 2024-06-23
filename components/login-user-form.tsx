@@ -41,8 +41,8 @@ const LoginUserForm = () => {
         message: 'Invalid email or password',
       });
     } else {
-      router.refresh();
       router.push('/workouts');
+      router.refresh();
     }
   };
 
