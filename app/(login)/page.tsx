@@ -15,7 +15,7 @@ const LoginPage = async () => {
   const session = await getServerSession();
 
   if (session) {
-    redirect('/workouts');
+    redirect('https://lift-two.vercel.app/workouts');
   }
 
   return (
@@ -31,7 +31,7 @@ const LoginPage = async () => {
         </CardContent>
         <CardFooter className="flex justify-center">
           Create an account?
-          <Link href="/register">
+          <Link href="https://lift-two.vercel.app/register">
             <span className="ml-1 font-bold hover:underline text-primary">
               Register
             </span>

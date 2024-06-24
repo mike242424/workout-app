@@ -41,13 +41,13 @@ const RegisterUserForm = () => {
     mutationFn: registerUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      router.push('/');
+      router.push('https://lift-two.vercel.app/');
     },
   });
 
   async function registerUser(data: RegisterUserFormData) {
     const response = await axios.post(
-      '/api/auth/users/register',
+      'https://lift-two.vercel.app/api/auth/users/register',
       data,
     );
     return response.data;
