@@ -41,13 +41,13 @@ const RegisterUserForm = () => {
     mutationFn: registerUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      router.push(`${process.env.NEXT_PUBLIC_API_BASE_URL}/`);
+      router.push("/");
     },
   });
 
   async function registerUser(data: RegisterUserFormData) {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/users/register`,
+      "/api/auth/users/register",
       data,
     );
     return response.data;

@@ -14,7 +14,7 @@ const RegisterPage = async () => {
   const session = await getServerSession();
 
   if (session) {
-    redirect(`${process.env.NEXT_PUBLIC_API_BASE_URL}/workouts`);
+    redirect('/workouts');
   }
 
   return (
@@ -30,7 +30,7 @@ const RegisterPage = async () => {
         </CardContent>
         <CardFooter className="flex justify-center">
           Already have an account?
-          <Link href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/`}>
+          <Link href={'/'}>
             <span className="ml-1 font-bold hover:underline text-primary">
               Login
             </span>
