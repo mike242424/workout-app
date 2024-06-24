@@ -35,7 +35,11 @@ const DeleteSetButton = ({
   function handleClick() {
     mutation.mutate();
   }
-  return <Button onClick={handleClick}>Delete Set</Button>;
+  return (
+    <Button variant="secondary" onClick={handleClick}>
+      Delete Set
+    </Button>
+  );
 };
 
 export default DeleteSetButton;

@@ -25,7 +25,11 @@ const DeleteWorkoutButton = ({ id }: { id: string }) => {
   function handleClick() {
     mutation.mutate();
   }
-  return <Button onClick={handleClick}>Delete Workout</Button>;
+  return (
+    <Button variant="secondary" onClick={handleClick}>
+      Delete Workout
+    </Button>
+  );
 };
 
 export default DeleteWorkoutButton;

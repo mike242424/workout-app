@@ -33,7 +33,7 @@ const WorkoutsPage = () => {
       <div className="flex items-center gap-4">
         <h1 className="font-bold text-3xl">My Workouts</h1>
         <Link
-          className="flex items-center justify-center bg-green-600 hover:bg-opacity-80 w-10 h-10 rounded-full font-bold"
+          className="flex items-center justify-center bg-secondary text-white hover:bg-sky-500/80 w-10 h-10 rounded-full font-bold"
           href="/workouts/add"
         >
           +

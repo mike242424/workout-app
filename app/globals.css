@@ -5,7 +5,7 @@
 html,
 body,
 :root {
-  @apply h-full;
+  @apply h-full bg-sky-100;
 }
 
 @layer base {
@@ -19,11 +19,11 @@ body,
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 202 93% 32%;
+    --primary-foreground: 255 255 255%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 201, 87%, 48%;
+    --secondary-foreground: 255 255 255%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;

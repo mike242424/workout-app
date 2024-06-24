@@ -98,13 +98,13 @@ const SearchExercise = () => {
       <div className="flex flex-col items-center gap-4">
         <h1 className="font-bold text-3xl">Find Exercises</h1>
         <DropdownMenu>
-          <DropdownMenuTrigger className="m-1 p-3 bg-sky-700 hover:bg-black text-white rounded font-bold">
+          <DropdownMenuTrigger className="m-1 p-3 bg-primary hover:bg-primary/80 text-white rounded font-bold">
             Select Target Muscle
           </DropdownMenuTrigger>
           <DropdownMenuContent className="hover:shadow-xl menu z-[1] text-black w-96 grid grid-cols-3 rounded">
             {targetMuscles.map((muscle, index) => (
               <DropdownMenuItem
-                className="font-bold p-3 text-left cursor-pointer data-[highlighted]:bg-sky-100"
+                className="font-bold p-3 text-left cursor-pointer data-[highlighted]:bg-sky-100 "
                 key={index}
                 onClick={() => handleClick(muscle)}
               >
@@ -119,7 +119,7 @@ const SearchExercise = () => {
               className="grid grid-cols-1 md:grid-cols-2 gap-4 text-justify mx-12 my-4 p-4 hover:shadow-xl"
               key={exercise.id}
             >
-              <CardContent className="p-6">
+              <CardContent className="flex flex-col gap-4 p-6">
                 <div>
                   <span className="font-bold">Exercise: </span>
                   {capitalizeFirstLetter(exercise.name)}
@@ -154,9 +154,9 @@ const SearchExercise = () => {
         </>
         <>
           {data?.length > 0 && (
-            <Pagination className="mb-4">
+            <Pagination className="mb-8">
               <PaginationContent>
-                <PaginationItem>
+                <PaginationItem className="text-primary">
                   <PaginationPrevious
                     href="#"
                     onClick={(e) => {
@@ -172,7 +172,7 @@ const SearchExercise = () => {
                     }
                   />
                 </PaginationItem>
-                <PaginationItem>
+                <PaginationItem className="text-primary">
                   <PaginationNext
                     href="#"
                     onClick={(e) => {

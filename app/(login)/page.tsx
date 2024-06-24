@@ -32,7 +32,9 @@ const LoginPage = async () => {
         <CardFooter className="flex justify-center">
           Create an account?
           <Link href="/register">
-            <span className="ml-1 font-bold hover:underline">Register</span>
+            <span className="ml-1 font-bold hover:underline text-primary">
+              Register
+            </span>
           </Link>
         </CardFooter>
       </Card>

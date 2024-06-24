@@ -33,7 +33,11 @@ const DeleteExerciseButton = ({
   function handleClick() {
     mutation.mutate();
   }
-  return <Button onClick={handleClick}>Delete Exercise</Button>;
+  return (
+    <Button variant="secondary" onClick={handleClick}>
+      Delete Exercise
+    </Button>
+  );
 };
 
 export default DeleteExerciseButton;
