@@ -1,7 +1,10 @@
 {
   "build": {
     "env": {
-      "DATABASE_URL": "your-database-url"
+      "DATABASE_URL": "@your-database-url",
+      "NEXTAUTH_SECRET": "@your-nextauth-secret",
+      "NEXT_PUBLIC_EXERCISEDB_API_KEY": "@your-exercisedb-api-key",
+      "NEXT_PUBLIC_EXERCISEDB_HOST": "@your-exercisedb-host"
     }
   },
   "builds": [
@@ -18,10 +21,5 @@
       "src": "/(.*)",
       "dest": "/api"
     }
-  ],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs16.x"
-    }
-  }
+  ]
 }
