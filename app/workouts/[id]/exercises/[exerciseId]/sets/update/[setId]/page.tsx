@@ -6,8 +6,9 @@ import z from 'zod';
 import { setSchema } from '@/validation/setSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import UpdateSetForm from '@/components/update-set-form';
+
 import Spinner from '@/components/loading';
+import UpdateSetForm from './update-set-form';
 
 const UpdateSetPage = ({
   params: { id, exerciseId, setId },

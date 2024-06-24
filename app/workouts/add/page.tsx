@@ -1,6 +1,6 @@
 'use client';
 
-import AddWorkoutForm from '@/components/add-workout-form';
+import AddWorkoutForm from '@/app/workouts/add/add-workout-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Workout } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

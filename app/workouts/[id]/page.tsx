@@ -1,6 +1,6 @@
 'use client';
 
-import DeleteWorkoutButton from '@/components/delete-workout-button';
+import DeleteWorkoutButton from '@/app/workouts/[id]/delete-workout-button';
 import Spinner from '@/components/loading';
 import { Button } from '@/components/ui/button';
 import {

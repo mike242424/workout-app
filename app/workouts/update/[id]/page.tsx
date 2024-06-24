@@ -4,7 +4,7 @@ import axios from 'axios';
 import z from 'zod';
 import { workoutSchema } from '@/validation/workoutSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import UpdateWorkoutForm from '@/components/update-workout-form';
+import UpdateWorkoutForm from './update-workout-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/loading';

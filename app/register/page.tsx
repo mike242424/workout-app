@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import RegisterUserForm from '@/components/register-user-form';
+import RegisterUserForm from './register-user-form';
 import {
   Card,
   CardContent,

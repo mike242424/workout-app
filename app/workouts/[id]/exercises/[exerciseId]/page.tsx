@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Set } from '@prisma/client';
-import DeleteExerciseButton from '@/components/delete-exercise-button';
+import DeleteExerciseButton from '@/app/workouts/[id]/exercises/[exerciseId]/delete-exercise-button';
 import { Button } from '@/components/ui/button';
 import {
   Card,

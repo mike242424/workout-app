@@ -2,6 +2,10 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { capitalizeFirstLetter } from '@/lib/capitalizeFirstLetter';
+import Spinner from '@/components/loading';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +13,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { capitalizeFirstLetter } from '@/lib/capitalizeFirstLetter';
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '@/components/loading';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 interface Exercise {
   id: string;
@@ -45,34 +53,40 @@ const targetMuscles = [
 
 const SearchExercise = () => {
   const [selectedMuscle, setSelectedMuscle] = useState<string | null>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
 
-  const { data, isLoading } = useQuery<Exercise[]>({
-    queryKey: ['exercises', selectedMuscle],
+  const { data, isLoading } = useQuery({
+    queryKey: ['exercises', selectedMuscle, currentPage],
     queryFn: () =>
-      selectedMuscle ? fetchExercises(selectedMuscle) : Promise.resolve([]),
+      selectedMuscle
+        ? fetchExercises(selectedMuscle, (currentPage - 1) * limit, limit)
+        : Promise.resolve([]),
     enabled: !!selectedMuscle,
   });
 
-  async function fetchExercises(muscle: string) {
-    const response = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/target/${muscle.toLowerCase()}?limit=200`,
+  async function fetchExercises(muscle: string, offset: number, limit: number) {
+    const response = await axios.get(
+      `https://exercisedb.p.rapidapi.com/exercises/target/${muscle.toLowerCase()}`,
       {
-        method: 'GET',
+        params: { limit, offset },
         headers: {
           'X-RapidAPI-Key': process.env.NEXT_PUBLIC_EXERCISEDB_API_KEY!,
           'X-RapidAPI-Host': process.env.NEXT_PUBLIC_EXERCISEDB_HOST!,
         },
-        cache: 'no-cache',
       },
     );
-    setDropdownOpen(false);
 
-    return response.json();
+    return response.data;
   }
 
   function handleClick(muscle: string) {
     setSelectedMuscle(muscle);
+    setCurrentPage(1);
+  }
+
+  function handlePageChange(page: number) {
+    setCurrentPage(page);
   }
 
   if (isLoading) {
@@ -87,7 +101,7 @@ const SearchExercise = () => {
           <DropdownMenuTrigger className="m-1 p-3 bg-sky-700 hover:bg-black text-white rounded font-bold">
             Select Target Muscle
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="hover:shadow-lg menu z-[1] text-black w-96 grid grid-cols-3 rounded">
+          <DropdownMenuContent className="hover:shadow-xl menu z-[1] text-black w-96 grid grid-cols-3 rounded">
             {targetMuscles.map((muscle, index) => (
               <DropdownMenuItem
                 className="font-bold p-3 text-left cursor-pointer data-[highlighted]:bg-sky-100"
@@ -102,7 +116,7 @@ const SearchExercise = () => {
         <>
           {data?.map((exercise: Exercise) => (
             <Card
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 text-justify mx-12 my-4 p-4 hover:shadow-lg"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 text-justify mx-12 my-4 p-4 hover:shadow-xl"
               key={exercise.id}
             >
               <CardContent className="p-6">
@@ -137,6 +151,46 @@ const SearchExercise = () => {
               </CardFooter>
             </Card>
           ))}
+        </>
+        <>
+          {data?.length > 0 && (
+            <Pagination className="mb-4">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage > 1) {
+                        handlePageChange(currentPage - 1);
+                      }
+                    }}
+                    className={
+                      currentPage === 1
+                        ? 'text-gray-400 cursor-not-allowed'
+                        : ''
+                    }
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (data?.length === limit) {
+                        handlePageChange(currentPage + 1);
+                      }
+                    }}
+                    className={
+                      data?.length < limit
+                        ? 'text-gray-400 cursor-not-allowed'
+                        : ''
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </>
       </div>
     </main>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import LoginUserForm from '@/components/login-user-form';
+
 import {
   Card,
   CardContent,
@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import LoginUserForm from './login-user-form';
 
 const LoginPage = async () => {
   const session = await getServerSession();

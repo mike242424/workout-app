@@ -1,11 +1,11 @@
 'use client';
 
-import AddExerciseForm from '@/components/add-exercise-form';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import { Workout } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import AddExerciseForm from './add-exercise-form';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const AddWorkoutExercisePage = ({
   params: { id },
