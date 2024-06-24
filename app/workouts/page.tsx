@@ -46,7 +46,7 @@ const WorkoutsPage = () => {
   }
 
   return (
-    <main className="flex flex-col items-center mt-12">
+    <main className="flex flex-col items-center justify-center mt-12">
       <div className="flex items-center gap-4">
         <h1 className="font-bold text-3xl">My Workouts</h1>
         <Link
