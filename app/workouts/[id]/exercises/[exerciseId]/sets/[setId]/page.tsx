@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import Spinner from '@/components/loading';
 
 const ExercisePage = ({
   params: { id, exerciseId, setId },
@@ -31,7 +32,7 @@ const ExercisePage = ({
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return (

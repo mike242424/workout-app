@@ -7,6 +7,7 @@ import { setSchema } from '@/validation/setSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import UpdateSetForm from '@/components/update-set-form';
+import Spinner from '@/components/loading';
 
 const UpdateSetPage = ({
   params: { id, exerciseId, setId },
@@ -49,7 +50,7 @@ const UpdateSetPage = ({
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (

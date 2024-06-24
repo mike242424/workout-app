@@ -4,7 +4,7 @@ import QueryClientContextProvider from '@/context/query-client-context-provider'
 import Navbar from '@/components/navbar';
 import { Oswald } from 'next/font/google';
 
-const oswald = Oswald({ subsets: ['latin'], weight: '600' });
+const oswald = Oswald({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
   title: 'Lift',

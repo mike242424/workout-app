@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import Spinner from '@/components/loading';
 
 const ExercisePage = ({
   params: { id, exerciseId },
@@ -42,7 +43,7 @@ const ExercisePage = ({
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return (

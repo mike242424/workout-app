@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import Spinner from '@/components/loading';
 
 const WorkoutsPage = () => {
   const { data, isLoading } = useQuery({
@@ -24,7 +25,7 @@ const WorkoutsPage = () => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return (

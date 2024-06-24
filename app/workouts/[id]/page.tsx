@@ -1,6 +1,7 @@
 'use client';
 
 import DeleteWorkoutButton from '@/components/delete-workout-button';
+import Spinner from '@/components/loading';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -39,7 +40,7 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   }
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return (

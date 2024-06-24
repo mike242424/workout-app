@@ -7,6 +7,7 @@ import { workoutSchema } from '@/validation/workoutSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UpdateExerciseForm from '@/components/update-exercise-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Spinner from '@/components/loading';
 
 const UpdateExercisePage = ({
   params: { id, exerciseId },
@@ -49,7 +50,7 @@ const UpdateExercisePage = ({
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (

@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UpdateWorkoutForm from '@/components/update-workout-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/loading';
 
 const UpdateWorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   const queryClient = useQueryClient();
@@ -40,7 +41,7 @@ const UpdateWorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
