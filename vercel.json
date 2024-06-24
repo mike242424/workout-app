@@ -1,0 +1,27 @@
+{
+  "build": {
+    "env": {
+      "DATABASE_URL": "your-database-url"
+    }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["prisma/**/*"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api"
+    }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs16.x"
+    }
+  }
+}
