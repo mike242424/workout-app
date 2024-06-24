@@ -116,7 +116,7 @@ const SearchExercise = () => {
         <>
           {data?.map((exercise: Exercise) => (
             <Card
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 text-justify mx-12 my-4 p-4 hover:shadow-xl"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 text-justify mx-12 my-4 mb-0 p-4 hover:shadow-xl"
               key={exercise.id}
             >
               <CardContent className="flex flex-col gap-4 p-6">
@@ -154,9 +154,9 @@ const SearchExercise = () => {
         </>
         <>
           {data?.length > 0 && (
-            <Pagination className="mb-8">
+            <Pagination>
               <PaginationContent>
-                <PaginationItem className="text-primary">
+                <PaginationItem>
                   <PaginationPrevious
                     href="#"
                     onClick={(e) => {
@@ -172,7 +172,7 @@ const SearchExercise = () => {
                     }
                   />
                 </PaginationItem>
-                <PaginationItem className="text-primary">
+                <PaginationItem>
                   <PaginationNext
                     href="#"
                     onClick={(e) => {

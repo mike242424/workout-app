@@ -69,12 +69,28 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'User not found.' }, { status: 404 });
     }
 
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '10', 10);
+    const offset = (page - 1) * limit;
+
     const workouts = await prisma.workout.findMany({
       where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
+      skip: offset,
+      take: limit,
     });
 
-    return NextResponse.json(workouts);
+    const totalWorkouts = await prisma.workout.count({
+      where: { userId: user.id },
+    });
+
+    return NextResponse.json({
+      data: workouts,
+      total: totalWorkouts,
+      page,
+      totalPages: Math.ceil(totalWorkouts / limit),
+    });
   } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error.' },

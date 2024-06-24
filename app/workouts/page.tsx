@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Workout } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
@@ -12,17 +13,33 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Spinner from '@/components/loading';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 const WorkoutsPage = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 12;
   const { data, isLoading } = useQuery({
-    queryKey: ['workouts'],
-    queryFn: getWorkouts,
+    queryKey: ['workouts', currentPage],
+    queryFn: () => getWorkouts(currentPage, limit),
   });
 
-  async function getWorkouts() {
-    const response = await axios.get('/api/workouts');
+  async function getWorkouts(page: number, limit: number) {
+    const response = await axios.get('/api/workouts', {
+      params: { page, limit },
+    });
     return response.data;
   }
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -40,9 +57,9 @@ const WorkoutsPage = () => {
         </Link>
       </div>
       <>
-        {data?.length > 0 ? (
+        {data?.data?.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full p-4 justify-items-center gap-4">
-            {data.map((workout: Workout) => (
+            {data.data.map((workout: Workout) => (
               <Link
                 className="w-full"
                 href={`workouts/${workout.id}`}
@@ -63,6 +80,53 @@ const WorkoutsPage = () => {
           <p className="mt-4">Add a workout</p>
         )}
       </>
+      {data?.totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage > 1) handlePageChange(currentPage - 1);
+                }}
+                className={
+                  currentPage === 1 ? 'text-gray-400 cursor-not-allowed' : ''
+                }
+              />
+            </PaginationItem>
+            {[...Array(data?.totalPages)].map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  href="#"
+                  isActive={index + 1 === currentPage}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePageChange(index + 1);
+                  }}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentPage < data?.totalPages)
+                    handlePageChange(currentPage + 1);
+                }}
+                className={
+                  currentPage === data?.totalPages
+                    ? 'text-gray-400 cursor-not-allowed'
+                    : ''
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </main>
   );
 };
