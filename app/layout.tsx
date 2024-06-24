@@ -2,10 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 import QueryClientContextProvider from '@/context/query-client-context-provider';
 import Navbar from '@/components/navbar';
+import { Oswald } from 'next/font/google';
+
+const oswald = Oswald({ subsets: ['latin'], weight: '600' });
 
 export const metadata: Metadata = {
-  title: 'Workout App',
-  description: 'Workout App',
+  title: 'Lift',
+  description:
+    'Lift is a workout tracking application designed to help you manage and optimize your fitness routine.',
 };
 
 export default function RootLayout({
@@ -15,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={oswald.className}>
         <QueryClientContextProvider>
           <Navbar />
           {children}
