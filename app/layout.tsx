@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import QueryClientContextProvider from '@/context/query-client-context-provider';
-import Navbar from '@/components/navbar';
 import { Oswald } from 'next/font/google';
+import Navbar from '@/components/navbar';
 
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '700'] });
 
