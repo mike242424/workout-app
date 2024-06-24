@@ -26,7 +26,7 @@ const ExercisePage = ({
 
   async function getSets() {
     const response = await axios.get(
-      `http://localhost:3000/api/workouts/${id}/exercises/${exerciseId}/sets/${setId}`,
+      `/api/workouts/${id}/exercises/${exerciseId}/sets/${setId}`,
     );
     return response.data;
   }

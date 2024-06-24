@@ -47,7 +47,7 @@ const RegisterUserForm = () => {
 
   async function registerUser(data: RegisterUserFormData) {
     const response = await axios.post(
-      'http://localhost:3000/api/auth/users/register',
+      '/api/auth/users/register',
       data,
     );
     return response.data;
