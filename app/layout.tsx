@@ -7,9 +7,9 @@ import Navbar from '@/components/navbar';
 const oswald = Oswald({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Lift',
+  title: 'Lift Now',
   description:
-    'Lift is a workout tracking application designed to help you manage and optimize your fitness routine.',
+    'Lift Now is a workout tracking application designed to help you manage and optimize your fitness routine.',
 };
 
 export default function RootLayout({

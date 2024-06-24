@@ -9,7 +9,7 @@ const Navbar = async () => {
     <nav className="bg-gradient-to-r from-sky-500 to-sky-800 p-4">
       <div className="flex justify-between items-center">
         <Link className="font-bold text-4xl text-white" href="/">
-          Lift
+          Lift Now
         </Link>
 
         {session && (
