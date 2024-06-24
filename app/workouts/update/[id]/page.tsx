@@ -53,7 +53,11 @@ const UpdateWorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <UpdateWorkoutForm title={data?.title} onSubmit={handleFormSubmit} />
+          <UpdateWorkoutForm
+            title={data?.title}
+            location={data?.location}
+            onSubmit={handleFormSubmit}
+          />
         </CardContent>
       </Card>
     </main>

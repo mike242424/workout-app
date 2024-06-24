@@ -66,10 +66,17 @@ const WorkoutsPage = () => {
                 key={workout.id}
               >
                 <Card className="hover:shadow-xl">
-                  <CardHeader>
-                    <CardTitle>{workout.title}</CardTitle>
-                    <CardDescription>
-                      Date: {formatDate(workout.createdAt.toString())}
+                  <CardHeader className="flex flex-col gap-3">
+                    <CardTitle className="text-2xl">{workout.title}</CardTitle>
+                    <CardDescription className="flex flex-col gap-1">
+                      <p className="text-lg">
+                        <span className="font-bold">Date:</span>{' '}
+                        {formatDate(workout.createdAt.toString())}
+                      </p>
+                      <p className="text-lg">
+                        <span className="font-bold">Location:</span>{' '}
+                        {workout.location}
+                      </p>
                     </CardDescription>
                   </CardHeader>
                 </Card>

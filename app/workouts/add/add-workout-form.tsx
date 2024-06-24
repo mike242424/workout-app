@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 const AddWorkoutForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
   const form = useForm({
     resolver: zodResolver(workoutSchema),
-    defaultValues: { title: '' },
+    defaultValues: { title: '', location: '' },
   });
 
   return (
@@ -35,6 +35,19 @@ const AddWorkoutForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
                 <FormLabel>Title:</FormLabel>
                 <FormControl>
                   <Input {...field} type="text" placeholder="Title" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <FormField
+            name="location"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location:</FormLabel>
+                <FormControl>
+                  <Input {...field} type="text" placeholder="Location" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

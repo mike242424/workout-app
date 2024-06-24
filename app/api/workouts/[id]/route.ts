@@ -102,7 +102,7 @@ export async function PUT(
       );
     }
 
-    const { title } = await req.json();
+    const { title, location } = await req.json();
 
     if (!title) {
       return NextResponse.json(
@@ -111,7 +111,7 @@ export async function PUT(
       );
     }
 
-    const validateTitle = workoutSchema.safeParse({ title });
+    const validateTitle = workoutSchema.safeParse({ title, location });
 
     if (!validateTitle.success) {
       return NextResponse.json(
@@ -137,7 +137,7 @@ export async function PUT(
 
     const updatedWorkout = await prisma.workout.update({
       where: { id },
-      data: { title },
+      data: { title, location },
     });
 
     return NextResponse.json(updatedWorkout);

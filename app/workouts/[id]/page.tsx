@@ -48,7 +48,15 @@ const WorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
       <Card className="flex flex-col items-center gap-4 w-10/12 md:w-8/12 lg:w-6/12 hover:shadow-xl">
         <CardHeader>
           <CardTitle className="font-bold text-3xl">{data?.title}</CardTitle>
-          <CardDescription>Date: {formatDate(data?.createdAt)}</CardDescription>
+          <CardDescription>
+            <p>
+              <span className="font-bold">Date:</span>{' '}
+              {formatDate(data?.createdAt)}
+            </p>
+            <p>
+              <span className="font-bold">Location:</span> {data?.location}
+            </p>
+          </CardDescription>
         </CardHeader>
         <CardContent className="w-full">
           <div className="flex items-center justify-center gap-4">

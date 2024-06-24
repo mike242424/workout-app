@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
     }
 
-    const { title } = await req.json();
+    const { title, location } = await req.json();
 
     if (!title) {
       return NextResponse.json(
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const validate = workoutSchema.safeParse({ title });
+    const validate = workoutSchema.safeParse({ title, location });
 
     if (!validate.success) {
       return NextResponse.json(
@@ -40,12 +40,14 @@ export async function POST(req: NextRequest) {
     const newWorkout = await prisma.workout.create({
       data: {
         title,
+        location: location || 'Not Specified',
         userId: user.id,
       },
     });
 
     return NextResponse.json(newWorkout, { status: 201 });
   } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 },

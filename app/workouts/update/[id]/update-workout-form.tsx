@@ -17,13 +17,18 @@ import { Button } from '@/components/ui/button';
 
 interface UpdateWorkoutFormProps {
   title: string;
+  location: string;
   onSubmit: (data: z.infer<typeof workoutSchema>) => void;
 }
 
-const UpdateWorkoutForm = ({ title, onSubmit }: UpdateWorkoutFormProps) => {
+const UpdateWorkoutForm = ({
+  title,
+  location,
+  onSubmit,
+}: UpdateWorkoutFormProps) => {
   const form = useForm<z.infer<typeof workoutSchema>>({
     resolver: zodResolver(workoutSchema),
-    defaultValues: { title },
+    defaultValues: { title, location },
   });
 
   return (
@@ -41,6 +46,19 @@ const UpdateWorkoutForm = ({ title, onSubmit }: UpdateWorkoutFormProps) => {
                 <FormLabel>Title:</FormLabel>
                 <FormControl>
                   <Input {...field} type="text" placeholder="Title" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <FormField
+            name="location"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location:</FormLabel>
+                <FormControl>
+                  <Input {...field} type="text" placeholder="Location" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
