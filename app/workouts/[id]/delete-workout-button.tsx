@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 
 const DeleteWorkoutButton = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
-
   const router = useRouter();
+
   const mutation = useMutation({
     mutationFn: deleteWorkout,
     onSuccess: () => {
@@ -25,10 +25,18 @@ const DeleteWorkoutButton = ({ id }: { id: string }) => {
   function handleClick() {
     mutation.mutate();
   }
+
   return (
-    <Button variant="secondary" onClick={handleClick}>
-      Delete Workout
-    </Button>
+    <div>
+      <Button
+        variant="secondary"
+        onClick={handleClick}
+        disabled={mutation.isPending}
+      >
+        {mutation.isPending ? 'Deleting...' : 'Delete Workout'}
+      </Button>
+      {mutation.isPending && <div className="spinner"></div>}
+    </div>
   );
 };
 
