@@ -1,6 +1,7 @@
 'use client';
 
 import AddWorkoutForm from '@/app/workouts/add/add-workout-form';
+import Spinner from '@/components/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Workout } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,8 +10,8 @@ import { useRouter } from 'next/navigation';
 
 const AddWorkoutPage = () => {
   const queryClient = useQueryClient();
-
   const router = useRouter();
+
   const mutation = useMutation({
     mutationFn: postWorkout,
     onSuccess: () => {
@@ -37,7 +38,13 @@ const AddWorkoutPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <AddWorkoutForm onSubmit={handleFormSubmit} />
+          {mutation.isPending ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <AddWorkoutForm onSubmit={handleFormSubmit} />
+          )}
         </CardContent>
       </Card>
     </main>
