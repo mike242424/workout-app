@@ -34,8 +34,12 @@ const DeleteExerciseButton = ({
     mutation.mutate();
   }
   return (
-    <Button variant="secondary" onClick={handleClick}>
-      Delete Exercise
+    <Button
+      variant="secondary"
+      onClick={handleClick}
+      disabled={mutation.isPending}
+    >
+      {mutation.isPending ? 'Deleting...' : 'Delete Exercise'}
     </Button>
   );
 };

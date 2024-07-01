@@ -36,8 +36,12 @@ const DeleteSetButton = ({
     mutation.mutate();
   }
   return (
-    <Button variant="secondary" onClick={handleClick}>
-      Delete Set
+    <Button
+      variant="secondary"
+      onClick={handleClick}
+      disabled={mutation.isPending}
+    >
+      {mutation.isPending ? 'Deleting...' : 'Delete Set'}
     </Button>
   );
 };

@@ -6,6 +6,7 @@ import { Workout } from '@prisma/client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import AddExerciseForm from './add-exercise-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Spinner from '@/components/loading';
 
 const AddWorkoutExercisePage = ({
   params: { id },
@@ -41,7 +42,13 @@ const AddWorkoutExercisePage = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <AddExerciseForm onSubmit={handleFormSubmit} />
+          {mutation.isPending ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <AddExerciseForm onSubmit={handleFormSubmit} />
+          )}
         </CardContent>
       </Card>
     </main>

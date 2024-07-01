@@ -84,7 +84,9 @@ const WorkoutsPage = () => {
             ))}
           </div>
         ) : (
-          <p className="mt-4">Add a workout</p>
+          <p className="mt-4">
+            No workouts found. Add a workout to get started.
+          </p>
         )}
       </>
       {data?.totalPages > 1 && (

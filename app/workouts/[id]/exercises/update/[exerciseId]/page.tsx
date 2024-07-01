@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import z from 'zod';
-import { workoutSchema } from '@/validation/workoutSchema';
+import { exerciseSchema } from '@/validation/exerciseSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UpdateExerciseForm from '@/app/workouts/[id]/exercises/update/[exerciseId]/update-exercise-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +18,7 @@ const UpdateExercisePage = ({
   const router = useRouter();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['exercise', id],
+    queryKey: ['exercise', id, exerciseId],
     queryFn: getExercise,
   });
 
@@ -37,7 +37,7 @@ const UpdateExercisePage = ({
     },
   });
 
-  async function updateExercise(data: z.infer<typeof workoutSchema>) {
+  async function updateExercise(data: z.infer<typeof exerciseSchema>) {
     const response = await axios.put(
       `/api/workouts/${id}/exercises/${exerciseId}`,
       data,
@@ -45,7 +45,7 @@ const UpdateExercisePage = ({
     return response.data;
   }
 
-  async function handleFormSubmit(data: z.infer<typeof workoutSchema>) {
+  async function handleFormSubmit(data: z.infer<typeof exerciseSchema>) {
     mutation.mutate(data);
   }
 
@@ -62,7 +62,16 @@ const UpdateExercisePage = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <UpdateExerciseForm title={data?.title} onSubmit={handleFormSubmit} />
+          {mutation.isPending ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <UpdateExerciseForm
+              title={data?.title}
+              onSubmit={handleFormSubmit}
+            />
+          )}
         </CardContent>
       </Card>
     </main>

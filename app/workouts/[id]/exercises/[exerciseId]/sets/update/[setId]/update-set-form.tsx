@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,6 +27,10 @@ const UpdateSetForm = ({ reps, weight, onSubmit }: UpdateSetFormProps) => {
     resolver: zodResolver(setSchema),
     defaultValues: { reps, weight },
   });
+
+  useEffect(() => {
+    form.reset({ reps, weight });
+  }, [reps, weight, form]);
 
   return (
     <div className="flex items-center justify-center">

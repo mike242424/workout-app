@@ -15,10 +15,10 @@ const UpdateWorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
 
   const { data, isLoading } = useQuery({
     queryKey: ['workout', id],
-    queryFn: getWorkout,
+    queryFn: () => getWorkout(id),
   });
 
-  async function getWorkout() {
+  async function getWorkout(id: string) {
     const response = await axios.get(`/api/workouts/${id}`);
     return response.data;
   }
@@ -53,11 +53,17 @@ const UpdateWorkoutPage = ({ params: { id } }: { params: { id: string } }) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <UpdateWorkoutForm
-            title={data?.title}
-            location={data?.location}
-            onSubmit={handleFormSubmit}
-          />
+          {mutation.isPending ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <UpdateWorkoutForm
+              title={data?.title}
+              location={data?.location}
+              onSubmit={handleFormSubmit}
+            />
+          )}
         </CardContent>
       </Card>
     </main>

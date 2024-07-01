@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,6 +31,10 @@ const UpdateWorkoutForm = ({
     resolver: zodResolver(workoutSchema),
     defaultValues: { title, location },
   });
+
+  useEffect(() => {
+    form.reset({ title, location });
+  }, [title, location, form]);
 
   return (
     <div className="flex items-center justify-center">

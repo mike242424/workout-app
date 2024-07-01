@@ -6,7 +6,6 @@ import z from 'zod';
 import { setSchema } from '@/validation/setSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
 import Spinner from '@/components/loading';
 import UpdateSetForm from './update-set-form';
 
@@ -19,7 +18,7 @@ const UpdateSetPage = ({
   const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['set', id],
+    queryKey: ['set', id, exerciseId, setId],
     queryFn: getSet,
   });
 
@@ -31,14 +30,16 @@ const UpdateSetPage = ({
   }
 
   const mutation = useMutation({
-    mutationFn: updateExercise,
+    mutationFn: updateSet,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['exercises'] });
+      queryClient.invalidateQueries({
+        queryKey: ['exercises', id, exerciseId],
+      });
       router.push(`/workouts/${id}/exercises/${exerciseId}`);
     },
   });
 
-  async function updateExercise(data: z.infer<typeof setSchema>) {
+  async function updateSet(data: z.infer<typeof setSchema>) {
     const response = await axios.put(
       `/api/workouts/${id}/exercises/${exerciseId}/sets/${setId}`,
       data,
@@ -63,11 +64,17 @@ const UpdateSetPage = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <UpdateSetForm
-            reps={data?.reps}
-            weight={data?.weight}
-            onSubmit={handleFormSubmit}
-          />
+          {mutation.isPending ? (
+            <div className="flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <UpdateSetForm
+              reps={data?.reps}
+              weight={data?.weight}
+              onSubmit={handleFormSubmit}
+            />
+          )}
         </CardContent>
       </Card>
     </main>
